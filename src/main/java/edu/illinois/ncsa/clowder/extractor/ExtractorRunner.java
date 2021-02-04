@@ -35,7 +35,11 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-
+/**
+ * Class {@code ExtractorRunner} helps users' extractor to communicate with Clowder and Rabbitmq.
+ * It receives the extraction request from Rabbitmq and invoke the processFile function to compute the metdata.
+ * It sends the extraction status updates to Clowder and post the metadata back to Clowder as well.
+ */
 public class ExtractorRunner {
   private Log logger = LogFactory.getLog(ExtractorRunner.class);
   private String rabbitmqURI;
