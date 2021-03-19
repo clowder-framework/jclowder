@@ -25,6 +25,6 @@ public abstract class Extractor {
    * @return metadata entries
    * @throws ExtractorException
    */
-	public abstract java.util.Map<String, Object> processFile(java.io.File input) throws ExtractorException;
+  public abstract java.util.Map<String, Object> processFile(java.io.File input) throws ExtractorException;
 
 }
