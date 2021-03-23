@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.apache.commons.cli.Options;
 
@@ -16,6 +18,7 @@ import edu.illinois.ncsa.clowder.extractor.ExtractorRunner;
 
 public class WordCount extends Extractor{
   static ExtractorRunner runner = null;
+  private Log logger = LogFactory.getLog(WordCount.class);
   
   private int userParam = 0;
   
@@ -37,11 +40,11 @@ public class WordCount extends Extractor{
   
   @Override
   public Map<String, Object> processFile(File input) throws ExtractorException {
-    System.out.println("userParam: " + userParam);
+    logger.debug("userParam: " + userParam);
     int count = 0;
     try {
       FileReader fr = new FileReader(input.getAbsoluteFile());     
-      BufferedReader br = new BufferedReader (fr);     
+      BufferedReader br = new BufferedReader (fr);
       String line = br.readLine();
       while (line != null) {
          String []parts = line.split(" ");
@@ -51,14 +54,14 @@ public class WordCount extends Extractor{
          }
          line = br.readLine();
       }         
-      System.out.println(count);
+      logger.debug(count);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      logger.error(ex.getMessage());
       throw new ExtractorException(ex.getMessage());
     }
     
     Map<String, Object> content = new HashMap<String, Object>();
-    content.put("characters", (Integer)count);
+    content.put("words", (Integer)count);
     
     return content;
   }
